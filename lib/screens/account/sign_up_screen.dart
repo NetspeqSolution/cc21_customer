@@ -1,5 +1,5 @@
 import 'package:cc21_customer/helpers/preference_manager.dart';
-import 'package:cc21_customer/models/customer_register_model.dart';
+import 'package:cc21_customer/models/account/customer_register_model.dart';
 import 'package:cc21_customer/screens/account/email_verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -99,9 +99,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (showToast)
         Fluttertoast.showToast(msg: "Make sure both password fields match.");
       return false;
-    }
-    else if(phoneNoController.text.isNotEmpty){
-      if(phoneNoController.text.length!=10){
+    } else if (phoneNoController.text.isNotEmpty) {
+      if (phoneNoController.text.length != 10) {
         if (showToast) {
           Fluttertoast.showToast(msg: "Phone number needs to have 10 digit.");
           return false;
@@ -173,20 +172,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 : SingleChildScrollView(
                     child: Column(
                       children: [
-                        Image(
-                            image: AssetImage('assets/images/logo.png'),
-                            height: getProportionateScreenHeight(50),
-                            width: getProportionateScreenWidth(150)),
                         SizedBox(height: getProportionateScreenHeight(24)),
-                        Text("Sign Up", style: kh2),
-                        SizedBox(height: getProportionateScreenHeight(24)),
+                        Row(
+                          children: [
+                            Text("Get started with app", style: kh1),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("Create account to continue", style: kh4),
+                          ],
+                        ),
                         signUpForm(),
                         SizedBox(height: getProportionateScreenHeight(24)),
                         SizedBox(
                           width: getWidthForPercentage(100),
                           height: getProportionateScreenHeight(48),
                           child: ElevatedButton(
-                              child: Text("Sign Up",
+                              child: Text("Continue",
                                   style: kDefaultButtonTextStyle),
                               style: _signupEnabled
                                   ? kDefaultButtonStyleEnabled
@@ -195,6 +198,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 signUp();
                               }),
                         ),
+                        SizedBox(height: getProportionateScreenHeight(24)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Already have an account? ", style: kh4),
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Sign in",
+                                    style: kh4.copyWith(color: kLinkColor))),
+                          ],
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(24)),
+                        Text(
+                          "By continuing you agree to our",
+                          style: kh5,
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Terms & Condition, Privacy Policy and Content Policy",
+                          style: kh5.copyWith(fontFamily: "NotoSansBold"),
+                          textAlign: TextAlign.center,
+                        )
                       ],
                     ),
                   ),
@@ -207,30 +234,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
   signUpForm() {
     return Center(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: getProportionateScreenHeight(24)),
+          Row(
+            children: [
+              Text("Name ", style: kh3.copyWith(color: kBlack)),
+              Icon(Icons.star_rate_rounded, size: 14,color: kRequiredIconColor,)
+            ],
+          ),
           TextField(
+            style: kh3,
             controller: yourNameController,
-            decoration: kOutlinedTextFieldStyle.copyWith(
-                hintText: 'Enter your name', labelText: 'Your Name'),
+            decoration: kOutlinedTextFieldStyle,
           ),
           SizedBox(height: getProportionateScreenHeight(12)),
+          Row(
+            children: [
+              Text("Email ", style: kh3.copyWith(color: kBlack)),
+              Icon(Icons.star_rate_rounded, size: 14,color: kRequiredIconColor,)
+            ],
+          ),
           TextField(
+            style: kh3,
             controller: emailIdController,
-            decoration: kOutlinedTextFieldStyle.copyWith(
-                hintText: 'Enter your email id', labelText: 'Email Id'),
+            decoration: kOutlinedTextFieldStyle.copyWith(),
           ),
           SizedBox(height: getProportionateScreenHeight(12)),
+          Row(
+            children: [
+              Text("Password ", style: kh3.copyWith(color: kBlack)),
+              Icon(Icons.star_rate_rounded, size: 14,color: kRequiredIconColor,)
+            ],
+          ),
           TextField(
+            style: kh3,
             controller: passwordController,
             obscureText: !_passwordVisible,
             decoration: kOutlinedTextFieldStyle.copyWith(
-              hintText: 'Enter your password',
-              labelText: 'Password',
               suffixIcon: IconButton(
                 icon: Icon(
                   // Based on passwordVisible state choose the icon
                   _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                  color: Theme.of(context).primaryColorDark,
+                  size: 20,
+                  color: kButtonDisabledColor,
                 ),
                 onPressed: () {
                   // Update the state i.e. toogle the state of passwordVisible variable
@@ -242,19 +289,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           SizedBox(height: getProportionateScreenHeight(12)),
+          Row(
+            children: [
+              Text("Confirm Password ", style: kh3.copyWith(color: kBlack)),
+              Icon(Icons.star_rate_rounded, size: 14,color: kRequiredIconColor,)
+            ],
+          ),
           TextField(
+            style: kh3,
             controller: confirmPasswordController,
             obscureText: !_confirmPasswordVisible,
             decoration: kOutlinedTextFieldStyle.copyWith(
-              hintText: 'Enter your password again',
-              labelText: 'Confirm Password',
               suffixIcon: IconButton(
                 icon: Icon(
                   // Based on passwordVisible state choose the icon
                   _confirmPasswordVisible
                       ? Icons.visibility
                       : Icons.visibility_off,
-                  color: Theme.of(context).primaryColorDark,
+                  size: 20,
+                  color: kButtonDisabledColor,
                 ),
                 onPressed: () {
                   // Update the state i.e. toogle the state of passwordVisible variable
@@ -266,19 +319,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           SizedBox(height: getProportionateScreenHeight(12)),
+          Row(
+            children: [
+              Text("Mobile No", style: kh3.copyWith(color: kBlack)),
+            ],
+          ),
           TextField(
+            style: kh3,
             controller: phoneNoController,
-            decoration: kOutlinedTextFieldStyle.copyWith(
-                hintText: 'Enter phone number',
-                labelText: 'Phone Number (optional)'),
+            decoration: kOutlinedTextFieldStyle.copyWith(),
             keyboardType: TextInputType.phone,
           ),
           SizedBox(height: getProportionateScreenHeight(12)),
+          Row(
+            children: [
+              Text("Referral Code", style: kh3.copyWith(color: kBlack)),
+            ],
+          ),
           TextField(
+            style: kh3,
             controller: referalCodeController,
-            decoration: kOutlinedTextFieldStyle.copyWith(
-                hintText: 'Enter referal code',
-                labelText: 'Referal Code (optional)'),
+            decoration: kOutlinedTextFieldStyle.copyWith(),
           ),
         ],
       ),

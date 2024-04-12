@@ -19,13 +19,11 @@ class _OrderScreenState extends State<OrderScreen> {
   int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
-    if(index==1){
+    if (index == 1) {
       Navigator.popAndPushNamed(context, CartScreen.routeName);
-    }
-    else if(index==2){
+    } else if (index == 2) {
       Navigator.popAndPushNamed(context, NotificationScreen.routeName);
-    }
-    else if(index==0){
+    } else if (index == 0) {
       Navigator.popAndPushNamed(context, HomeScreen.routeName);
     }
   }
@@ -34,40 +32,39 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
+          child: Column(
+        children: [
+          Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(30),
-                  bottomLeft: Radius.circular(30)),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-              ],
-            ),
-            child: ClipRRect(
+                color: kPrimaryColor,
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30.0),
-                  bottomRight: Radius.circular(30.0),
-                ),
-                child: Container(
-                  width: getWidthForPercentage(100),
-                  height: getProportionateScreenHeight(40),
-                  color: kPrimaryColor,
-                  child: Center(child: Text("order "),),
-                ))),
-      ),
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: getProportionateScreenHeight(12),
+                    horizontal: getProportionateScreenWidth(12)),
+                child: Center(
+                  child: Text("Orders",style: kh2.copyWith(color: kWhite),),
+                )),
+          ),
+          Expanded(
+            child: Container(),
+          ),
+        ],
+      )),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+              topRight: Radius.circular(20), topLeft: Radius.circular(20)),
           boxShadow: [
             BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
           ],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0),
-            topRight: Radius.circular(30.0),
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

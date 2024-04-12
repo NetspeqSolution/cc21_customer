@@ -1,3 +1,4 @@
+import 'package:cc21_customer/screens/account/change_password_screen.dart';
 import 'package:cc21_customer/screens/account/email_verification_screen.dart';
 import 'package:cc21_customer/screens/account/login_screen.dart';
 import 'package:cc21_customer/screens/account/sign_up_screen.dart';
@@ -15,4 +16,5 @@ final Map<String, WidgetBuilder> routes = {
   CartScreen.routeName: (context) => CartScreen(),
   NotificationScreen.routeName: (context) => NotificationScreen(),
   OrderScreen.routeName: (context) => OrderScreen(),
+  ChangePasswordScreen.routeName: (context) => ChangePasswordScreen(),
 };

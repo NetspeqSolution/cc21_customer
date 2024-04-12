@@ -47,15 +47,6 @@ class PreferenceManager {
     final SharedPreferences preferences = _prefs;
     return preferences.getString(kAccessToken) ?? "null";
   }
-  static deleteUserBasicInfo() {
-    final SharedPreferences preferences = _prefs;
-    preferences.remove(kUserEmail);
-    preferences.remove(kUserId);
-    preferences.remove(kUserName);
-    preferences.remove(kProfileName);
-    preferences.remove(kAccessToken);
-    preferences.remove(kRefreshToken);
-  }
 
   static setRefreshToken(String token) {
     final SharedPreferences preferences = _prefs;
@@ -179,5 +170,16 @@ class PreferenceManager {
   static Future<String> getDeliveryAddress() async {
     final SharedPreferences preferences = await _prefs;
     return preferences.getString(kAddress)??"";
+  }
+
+  static deleteUserBasicInfo() async {
+    final SharedPreferences preferences = await _prefs;
+    preferences.remove(kAccessToken);
+    preferences.remove(kRefreshToken);
+    preferences.remove(kProfileName);
+    preferences.remove(kUserEmail);
+    preferences.remove(kUserName);
+    preferences.remove(kUserId);
+    preferences.remove(kUserRole);
   }
 }

@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:cc21_customer/models/customer_register_model.dart';
+import 'package:cc21_customer/models/account/change_password_model.dart';
+import 'package:cc21_customer/models/account/customer_register_model.dart';
+import 'package:cc21_customer/models/account/user_profile_model.dart';
 
 import '../helpers/constants.dart';
-import '../models/login_model.dart';
+import '../helpers/preference_manager.dart';
+import '../models/account/login_model.dart';
 import 'helpers/network_helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
@@ -70,6 +73,46 @@ class AccountService {
       uri = Uri.http(mainURL, '/api/Account/CustomerRegister');
     } else {
       uri = Uri.https(mainURL, '/api/Account/CustomerRegister');
+    }
+
+    return await networkHelper.postData(uri, bodyParameters);
+  }
+
+  Future<dynamic> getUserProfile(String userID) async {
+    try {
+
+      Map<String, String> queryParameters = {
+        'Id': userID,
+      };
+
+      var uri;
+      if (kUriScheme.compareTo('http') == 0) {
+        uri = Uri.http(mainURL, 'api/Account/UserProfileByID', queryParameters);
+      } else {
+        uri = Uri.https(mainURL, 'api/Account/UserProfileByID', queryParameters);
+      }
+
+      var response = await networkHelper.getDataWithHeaders(
+          uri, PreferenceManager.getAccessToken());
+
+      if(response is String){
+        return response;
+      } else {
+        return UserProfileModel.fromJson(response);
+      }
+    } catch (e) {
+      return kGeneralError;
+    }
+  }
+
+  Future<String> changePassword(ChangePasswordModel model) async {
+    Map<String, dynamic> bodyParameters = model.toJson();
+
+    var uri;
+    if (kUriScheme.compareTo('http') == 0) {
+      uri = Uri.http(mainURL, '/api/Account/ChangePassword');
+    } else {
+      uri = Uri.https(mainURL, '/api/Account/ChangePassword');
     }
 
     return await networkHelper.postData(uri, bodyParameters);

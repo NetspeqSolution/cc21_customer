@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../helpers/constants.dart';
 import '../../helpers/preference_manager.dart';
 import '../../helpers/size_config.dart';
-import '../../models/login_model.dart';
+import '../../models/account/login_model.dart';
 import '../../services/account_service.dart';
 import '../home_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -57,10 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
     await PreferenceManager.init();
   }
 
-  bool validateCredentials({bool showToast= false}) {
+  bool validateCredentials({bool showToast = false}) {
     if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
-      if(showToast)
-      Fluttertoast.showToast(msg: "Please enter email and/or password.");
+      if (showToast)
+        Fluttertoast.showToast(msg: "Please enter email and/or password.");
       return false;
     }
     return true;
@@ -119,8 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/images/cc21_logo.svg',
-                            height: getProportionateScreenHeight(50),
-                            width: getProportionateScreenWidth(150)),
+                            height: getProportionateScreenHeight(40),
+                            width: getProportionateScreenWidth(120)),
                         SizedBox(height: getProportionateScreenHeight(24)),
                         Row(
                           children: [
@@ -144,30 +144,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: getProportionateScreenHeight(24)),
                         Row(
                           children: [
-                            Text("Email & Password", style: kh2),
+                            Text("Email & Password ",
+                                style: kh3.copyWith(color: kBlack)),
+                            Icon(Icons.star_rate_rounded, size: 14,color: kRequiredIconColor,)
                           ],
                         ),
                         SizedBox(height: getProportionateScreenHeight(12)),
                         TextField(
                           controller: usernameController,
                           decoration: kOutlinedTextFieldStyle.copyWith(
-                              prefixIcon: Icon(
-                                Icons.account_box_rounded,
-                                color: kTextLight,
-                              ),
-                              hintText: 'Enter email',
-                              labelText: 'Email'),
+                            prefixIcon: Icon(
+                              Icons.perm_identity_sharp,
+                              color: kTextBoxBorderColor,
+                            ),
+                          ),
+                          style: kh3,
                         ),
                         SizedBox(height: getProportionateScreenHeight(12)),
                         TextField(
+                          style: kh3,
                           controller: passwordController,
                           obscureText: !_passwordVisible,
                           decoration: kOutlinedTextFieldStyle.copyWith(
-                            hintText: 'Enter your password',
-                            labelText: 'Password',
                             prefixIcon: Icon(
-                              Icons.lock,
-                              color: kTextLight,
+                              Icons.lock_open_sharp,
+                              color: kTextBoxBorderColor,
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -175,7 +176,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 _passwordVisible
                                     ? Icons.visibility
                                     : Icons.visibility_off,
-                                color: Theme.of(context).primaryColorDark,
+                                size: 20,
+                                color: kButtonDisabledColor,
                               ),
                               onPressed: () {
                                 // Update the state i.e. toogle the state of passwordVisible variable
@@ -186,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: getProportionateScreenHeight(12)),
+                        SizedBox(height: getProportionateScreenHeight(24)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -196,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             )
                           ],
                         ),
-                        SizedBox(height: getProportionateScreenHeight(12)),
+                        SizedBox(height: getProportionateScreenHeight(24)),
                         SizedBox(
                           width: getWidthForPercentage(100),
                           height: getProportionateScreenHeight(48),
@@ -225,7 +227,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         SizedBox(height: getProportionateScreenHeight(24)),
-                        Text("or login with", style: kh4),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(flex: 1,
+                                child: Divider(color: kTextBoxBorderColor,)),
+                            Expanded(flex: 1, child: Center(child: Text("or login with", style: kh4))),
+                            Expanded(flex: 1,
+                                child: Divider(color: kTextBoxBorderColor,)),
+                          ],
+                        ),
                         SizedBox(height: getProportionateScreenHeight(24)),
                         SizedBox(
                           height: getProportionateScreenHeight(48),
@@ -238,15 +249,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 LoginUser();
                               }),
                         ),
-                        SizedBox(height: getProportionateScreenHeight(24)),
+                        SizedBox(height: getProportionateScreenHeight(36)),
                         Text(
                           "By continuing you agree to our",
-                          style: kh4,
+                          style: kh5,
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           "Terms & Condition, Privacy Policy and Content Policy",
-                          style: kh4.copyWith(fontFamily: "NotoSansBold"),
+                          style: kh5.copyWith(fontFamily: "NotoSansBold"),
                           textAlign: TextAlign.center,
                         )
                       ],

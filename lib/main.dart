@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cc21_customer/helpers/constants.dart';
 import 'package:cc21_customer/helpers/theme.dart';
 import 'package:cc21_customer/screens/account/login_screen.dart';
+import 'package:cc21_customer/screens/account/sign_up_screen.dart';
 import 'package:cc21_customer/screens/home_screen.dart';
 import 'package:cc21_customer/services/helpers/network_helper.dart';
 import 'package:cc21_customer/services/interceptor/dio_util.dart';
@@ -41,6 +42,6 @@ class MyApp extends StatelessWidget {
         theme: cc21CustomerTheme(),
         routes: routes,
         debugShowCheckedModeBanner: false,
-        initialRoute: HomeScreen.routeName);
+        initialRoute: LoginScreen.routeName);
   }
 }

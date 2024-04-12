@@ -1,3 +1,4 @@
+import 'package:cc21_customer/helpers/size_config.dart';
 import 'package:flutter/material.dart';
 
 const String kAppName = 'Geo Sikkim';
@@ -20,9 +21,9 @@ const String kLONGITUDE = 'Current longitude';
 const String kDEVICE_ID = 'Firebase Device ID';
 const String kId = 'Test ID';
 const String kResId = 'Test ID';
-const String kLat = '';
-const String kLng = '';
-const String kAddress = '';
+const String kLat = 'lat';
+const String kLng = 'lng';
+const String kAddress = 'add';
 //const String kUriScheme = 'http';
 const String kUriScheme = 'https';
 // const int kport = 7075;
@@ -33,6 +34,7 @@ const String kInternetError =
     'Error: Please check your internet, Try again later';
 const String kGeneralError = 'Error: Something went wrong, Try again later';
 const String kPlacesApiKey = 'AIzaSyBZbAIlLlcRXFqYg9JxT0VwJxLe_gjFaIE';
+const String kWebLiveUploadURL = "https://cc21.netspeq.com/uploads/restaurantimages/";
 
 const kAccentColor = Color(0xff4e45bf);
 const kPrimaryColor = Color(0xff4e45bf);
@@ -45,14 +47,23 @@ const kBlack = Color(0xFF000000);
 const kLinkColor = Color(0xFF1aa1fb);
 const kButtonDisabledColor = Color(0xff676a7d);
 const kButtonSecondaryColor = Color(0xfffab047);
+const kTextBoxBorderColor = Color(0xfff2f2f4);
+const kRequiredIconColor = Color(0xffbf1212);
+const kTransparentBgColor = Color(0x42000000);
 
 
 final kOutlinedTextFieldStyle = InputDecoration(
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: kTextLight),
-    ),
+  contentPadding: EdgeInsets.symmetric(
+    horizontal: getProportionateScreenWidth(8),
+    vertical: getProportionateScreenHeight(8)
+  ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: kTextLight),
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderSide: BorderSide(color: kTextBoxBorderColor)
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderSide: BorderSide(color: kTextBoxBorderColor)
     ),
     hintStyle: kh3,
     labelStyle: kh3);
@@ -93,3 +104,24 @@ const kh3 = TextStyle(fontFamily: "NotoSans", fontSize: 16, color: kTextLight);
 const kh4 = TextStyle(fontFamily: "NotoSans", fontSize: 14, color: kTextLight);
 const kh5 = TextStyle(fontFamily: "NotoSans", fontSize: 12, color: kTextLight);
 const kh6 = TextStyle(fontFamily: "NotoSans", fontSize: 10, color: kTextLight);
+
+// Row(
+// mainAxisSize: MainAxisSize.min,
+// children: [
+// Icon(Icons.circle,size: 14,color:  partnerList
+//     .elementAt(
+// index)
+//     .partner
+//     .isActive?Colors.green:Colors.red,),
+// Text(
+// partnerList
+//     .elementAt(
+// index)
+//     .partner
+//     .isActive
+// ? " open"
+//     : " closed",
+// style: kh4.copyWith(
+// color: kWhite)),
+// ],
+// ),
